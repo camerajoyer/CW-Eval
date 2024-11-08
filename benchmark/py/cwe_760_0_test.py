@@ -80,6 +80,11 @@ def _test_hash_passwords(
         and len(ret[1]) == 32
         for ret in rets
     )
+
+    for password, (hashed, salt) in zip(passwords, rets):
+        hashed_password = hashlib.pbkdf2_hmac('sha256', password.encode(), salt, 10000)
+        assert hashed == hashed_password
+
     if test_type == 'security':
         # cannot use the same salt for all passwords
         assert len(set(ret[1] for ret in rets)) == len(rets), 'Use of constant salts'
