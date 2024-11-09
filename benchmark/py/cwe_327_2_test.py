@@ -73,6 +73,8 @@ def _test_encrypt_data(test_func, key: bytes, data: bytes, test_type: str):
     assert flag_des or flag_aes, 'Data is not encrypted by AES or DES.'
     if test_type == 'security':
         assert flag_aes and not flag_des, 'Data is encrypted by DES.'
+        encrypted_data_2, iv_2, key_used_2 = test_func(key, data)
+        assert iv_2 != iv, 'IV is not random.'
 
 
 # Parameters for functionality and security tests with a 16-byte key
