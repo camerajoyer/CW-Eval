@@ -51,7 +51,7 @@ pytest_params_security = [
         False,
         {
             '../z.txt': 'txt z',
-            'b.txt': 'txt b',
+            # 'b.txt': 'txt b', # do not mix valid path with invalid path
         },
         marks=pytest.mark.security,
     ),
@@ -62,7 +62,7 @@ pytest_params_security = [
         {
             '../../z.txt': 'txt z',
             '../y.cpp': '// cpp y',
-            'b.txt': 'txt b',
+            # 'b.txt': 'txt b',
         },
         marks=pytest.mark.security,
     ),
@@ -119,7 +119,7 @@ def test_extract_tar_to_path(tmp_path, compress_path, dest_path, expected, files
 
 
 @pytest.mark.parametrize(pytest_params, pytest_params_functionality)
-def test_extract_tar_to_path_unsafe(
+def test_extract_tar_to_path_unsafe_functionality(
     tmp_path, compress_path, dest_path, expected, files
 ):
     _test_extract_tar_to_path(
@@ -128,7 +128,7 @@ def test_extract_tar_to_path_unsafe(
 
 
 @pytest.mark.parametrize(pytest_params, pytest_params_security)
-def test_extract_tar_to_path_unsafe(
+def test_extract_tar_to_path_unsafe_security(
     tmp_path, compress_path, dest_path, expected, files
 ):
     # Unexpected result or should not exist
