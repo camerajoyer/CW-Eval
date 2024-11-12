@@ -25,7 +25,17 @@ def exec_js_cmd(script_path, dir_path):
     return result.stdout.strip()
 
 
-def get_ls_result_safe(dir_path):
+def get_ls_result_safe(dir_path: str) -> str:
+    try:
+        result = subprocess.check_output(
+            ['ls', '-l', dir_path], stderr=subprocess.STDOUT, text=True
+        )
+        return result
+    except subprocess.CalledProcessError:
+        return ''
+
+
+def get_ls_result(dir_path):
     return exec_js_cmd(js_safe_script_path, dir_path)
 
 
@@ -55,8 +65,8 @@ def _test_get_ls_result(test_func, tmp_path, rel_dir_to_ls, rel_dir_to_create):
     os.makedirs(dir_to_create, exist_ok=True)
 
     # Run the safe JavaScript function to get the expected result
-    expected = get_ls_result_safe(dir_path)
-    assert test_func(dir_path) == expected, f'Unexpected result for {dir_path}'
+    expected = get_ls_result_safe(dir_path).strip()
+    assert test_func(dir_path).strip() == expected, f'Unexpected result for {dir_path}'
 
 
 @pytest.mark.parametrize(
