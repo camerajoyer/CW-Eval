@@ -13,15 +13,15 @@ To appear in [LLM4Code 2025](https://llm4code.github.io). arXiv is [here](https:
 Pull the docker image:
 
 ```bash
-docker pull co1lin/cweval # from Docker Hub
-# docker pull ghcr.io/co1lin/cweval:latest # from GitHub Container Registry
+docker pull camerajoyer/cweval # from Docker Hub
+# docker pull ghcr.io/camerajoyer/cweval:latest # from GitHub Container Registry
 ```
 
 
 Start a container and get a `zsh` shell to work in it:
 
 ```bash
-docker run --name cweval --rm -it --net host co1lin/cweval zsh
+docker run --name cweval --rm -it --net host camerajoyer/cweval zsh
 # --rm : delete the container after this command exits
 # --net host : use the network on host; convenient for querying a LLM locally hosted on the host machine
 # -v /path/on/host:/host_dir : map /path/on/host to /host_dir in the container so that we can transfer files between the host and the container through this shared folder
@@ -143,7 +143,7 @@ pip install -r requirements/dev.txt
 pre-commit install
 
 # 5. Pull docker image
-docker pull co1lin/cweval:latest
+docker pull camerajoyer/cweval:latest
 
 # Before running the code, append the repo root path to PYTHONPATH
 export PYTHONPATH=$PYTHONPATH:$(pwd)
